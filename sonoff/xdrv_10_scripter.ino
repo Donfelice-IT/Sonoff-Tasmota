@@ -2137,7 +2137,7 @@ void Scripter_save_pvars(void) {
 #ifdef USE_WEBSERVER
 
 #define WEB_HANDLE_SCRIPT "s10"
-#define D_CONFIGURE_SCRIPT "Edit script"
+#define D_CONFIGURE_SCRIPT "Script konfigurieren"
 #define D_RULEVARS "edit script"
 
 const char S_CONFIGURE_SCRIPT[] PROGMEM = D_CONFIGURE_SCRIPT;

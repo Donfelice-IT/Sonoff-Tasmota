@@ -50,6 +50,7 @@ const char HTTP_HEAD[] PROGMEM =
   "<!DOCTYPE html><html lang=\"" D_HTML_LANGUAGE "\" class=\"\">"
   "<head>"
   "<meta charset='utf-8'>"
+  "<link rel=\"apple-touch-icon\" href=\"https://goo.gl/hMsVRa\">" //reloxx13: add icon for ios home screen
   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no\"/>"
   "<title>%s - %s</title>"
 
@@ -82,7 +83,8 @@ const char HTTP_SCRIPT_ROOT[] PROGMEM =
     "x.onreadystatechange=function(){"
       "if(x.readyState==4&&x.status==200){"
         "var s=x.responseText.replace(/{t}/g,\"<table style='width:100%%'>\").replace(/{s}/g,\"<tr><th>\").replace(/{m}/g,\"</th><td>\").replace(/{e}/g,\"</td></tr>\").replace(/{c}/g,\"%%'><div style='text-align:center;font-weight:\");"
-        "eb('l1').innerHTML=s;"
+        "s = s.replace(/OFF/g,\" " D_OFF " \").replace(/ON/g,\" " D_ON " \").toUpperCase();" //translate ON/OFF
+		"eb('l1').innerHTML=s;"
       "}"
     "};"
     "x.open('GET','.?m=1'+a,true);"       // ?m related to WebServer->hasArg("m")
@@ -392,7 +394,8 @@ const char HTTP_END[] PROGMEM =
   "</body>"
   "</html>";
 
-const char HTTP_DEVICE_CONTROL[] PROGMEM = "<td style='width:%d%%'><button onclick='la(\"&o=%d\");'>%s%s</button></td>";  // ?o is related to WebGetArg("o", tmp, sizeof(tmp));
+//reloxx: add  style='line-height:5.0rem;' to button
+const char HTTP_DEVICE_CONTROL[] PROGMEM = "<td style='width:%d%%'><button onclick='la(\"&o=%d\");' style='line-height:5.0rem;'>%s%s</button></td>";  // ?o is related to WebGetArg("o", tmp, sizeof(tmp));
 const char HTTP_DEVICE_STATE[] PROGMEM = "<td style='width:%d{c}%s;font-size:%dpx'>%s</div></td>";  // {c} = %'><div style='text-align:center;font-weight:
 
 enum ButtonTitle {
