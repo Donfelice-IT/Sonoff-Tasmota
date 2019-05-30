@@ -1,3 +1,14 @@
+###### Changes
+> add sonoff-DE-2MB & sonoff-DE-4MB<br />
+> Disabled: All sensors, SerialLog, MQTT, Domoticz, Home Assistant, KNX, mDNS, Display, IR, LLI devices<br />
+> Defaults: Sleep 150, WiFi Manager, TelePeriod 600, German NTP, Timezone 99, LedState 0, PowerOnState 0, use_script<br />
+> translated on/off status (thx [reloxx13](https://github.com/reloxx13/Sonoff-Tasmota-Modified))<br />
+> add icon for ios home screen (thx [reloxx13](https://github.com/reloxx13/Sonoff-Tasmota-Modified))<br />
+> add  style='line-height:5.0rem;' to button (thx [reloxx13](https://github.com/reloxx13/Sonoff-Tasmota-Modified))<br />
+> WebColor night mode (thx [NoitaercX](https://forum.creationx.de/forum/index.php?thread/1692-tasmota-v6-5-0-release/&postID=22675#post22675))<br />
+> Allow non-admin user handling on web interface [PR#5747](https://github.com/arendst/Sonoff-Tasmota/pull/5747) (thx [hb020](https://github.com/hb020))
+
+
 # Sonoff-Tasmota
 
 <img src="/tools/logo/TASMOTA_FullLogo_Vector.svg" alt="Logo" align="right" height="90"/>Alternative firmware for _ESP8266 based devices_ like [iTead](https://www.itead.cc/) _**Sonoff**_ with **web UI, rules and timers, OTA updates, custom device templates and sensor support**. Allows control over **MQTT**, **HTTP**, **Serial** and **KNX** for integrations with smart home systems. Written for Arduino IDE and PlatformIO.
@@ -24,7 +35,7 @@ In addition to the [release webpage](https://github.com/arendst/Sonoff-Tasmota/r
 
 See [RELEASENOTES.md](https://github.com/arendst/Sonoff-Tasmota/blob/development/RELEASENOTES.md) for release information and [sonoff/_changelog.ino](https://github.com/arendst/Sonoff-Tasmota/blob/development/sonoff/_changelog.ino) for detailed change information.
 
-The development codebase is checked hourly for changes and if new commits have been merged and compile successfuly they will be posted at http://thehackbox.org/tasmota/ (this web address can be used for OTA too). It is important to note that these are based on the current development codebase and it is not recommended to flash it to devices used in production or which are hard to reach in the event that you need to manually flash the device if OTA failed. The last compiled commit number is also posted on the same page along with the current build status (if a firmware rebuild is in progress).
+The development codebase is checked hourly for changes and if new commits have been merged and compile successfuly they will be posted at http://thehackbox.org/tasmota/ (this web address can be used for OTA too). It is important to note that these are based on the current development codebase and it is not recommended to flash it to devices used in production or which are hard to reach in the event that you need to manually flash the device if OTA failed. The last compiled commit number is also posted on the same page along with the current build status (if a firmware rebuild is in progress).&nbsp;&nbsp;
 
 ### Disclaimer
 :warning: **DANGER OF ELECTROCUTION** :warning:
