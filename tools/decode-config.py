@@ -903,7 +903,12 @@ Setting_6_5_0_9['flag3'][0].update ({
         'no_power_feedback':             ('<L', (0x3A0,1,13), (None, None,                      ('SetOption',   '"SetOption63 {}".format($)')) ),
                                     })
 # ======================================================================
-Setting_6_5_0_11 = copy.deepcopy(Setting_6_5_0_9)
+Setting_6_5_0_10 = copy.deepcopy(Setting_6_5_0_9)
+Setting_6_5_0_10.update({
+    'user_password':                ('32s', 0x744,       (None, None,                           ('Wifi',        '"UserPassword {}".format($)')), (passwordread,passwordwrite) ),
+                                    })
+# ======================================================================
+Setting_6_5_0_11 = copy.deepcopy(Setting_6_5_0_10)
 Setting_6_5_0_11['flag3'][0].update ({
         'use_underscore':                ('<L', (0x3A0,1,14), (None, None,                      ('SetOption',   '"SetOption64 {}".format($)')) ),
                                     })
@@ -922,6 +927,7 @@ Settings = [
             (0x605000C, 0xe00, Setting_6_5_0_12),
             (0x605000B, 0xe00, Setting_6_5_0_11),
             (0x605000B, 0xe00, Setting_6_5_0_11),
+			(0x605000A, 0xe00, Setting_6_5_0_10)
             (0x6050009, 0xe00, Setting_6_5_0_9),
             (0x6050007, 0xe00, Setting_6_5_0_7),
             (0x6050006, 0xe00, Setting_6_5_0_6),

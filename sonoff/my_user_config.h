@@ -132,7 +132,8 @@
 
 // -- HTTP ----------------------------------------
 #define WEB_SERVER             2                 // [WebServer] Web server (0 = Off, 1 = Start as User, 2 = Start as Admin)
-#define WEB_PASSWORD           ""                // [WebPassword] Web server Admin mode Password for WEB_USERNAME (empty string = Disable)
+#define WEB_PASSWORD           ""                // [WebPassword] Web server Admin Password for WEB_ADMINNAME (empty string = Disable)
+#define USER_PASSWORD          ""                // [UserPassword] Web server User Password for WEB_USERNAME (empty string = Disable)
 #define FRIENDLY_NAME          "Sonoff"          // [FriendlyName] Friendlyname up to 32 characters used by webpages and Alexa
 #define EMULATION              EMUL_NONE         // [Emulation] Select Belkin WeMo (single relay/light) or Hue Bridge emulation (multi relay/light) (EMUL_NONE, EMUL_WEMO or EMUL_HUE)
 // HTML hex color codes. Only 3 and 6 digit hex string values are supported!! See https://www.w3schools.com/colors/colors_hex.asp
@@ -141,7 +142,7 @@
 #define COLOR_FORM                  "#4f4f4f"    // [WebColor3] Form background color - Greyish
 #define COLOR_INPUT_TEXT            "#000000"    // [WebColor4] Input text color - Black
 #define COLOR_INPUT                 "#dddddd"    // [WebColor5] Input background color - White
-#define COLOR_CONSOLE_TEXT          "#eeeeee"    // [WebColor6] Console text color - Black
+#define COLOR_CONSOLE_TEXT          "#008000"    // [WebColor6] Console text color - Black
 #define COLOR_CONSOLE               "#222222"    // [WebColor7] Console background color - White
 #define COLOR_TEXT_WARNING          "#ff0000"    // [WebColor8] Warning text color - Red
 #define COLOR_TEXT_SUCCESS          "#008000"    // [WebColor9] Success text color - Green
@@ -274,7 +275,8 @@
 // -- HTTP ----------------------------------------
 #define USE_WEBSERVER                            // Enable web server and Wifi Manager (+66k code, +8k mem)
   #define WEB_PORT             80                // Web server Port for User and Admin mode
-  #define WEB_USERNAME         "admin"           // Web server Admin mode user name
+  #define WEB_ADMINNAME        "admin"           // Web server admin user name
+  #define WEB_USERNAME         "user"            // Web server regular user name
   #define USE_EMULATION_HUE                      // Enable Hue Bridge emulation for Alexa (+14k code, +2k mem common)
 //  #define USE_EMULATION_WEMO                     // Enable Belkin WeMo emulation for Alexa (+6k code, +2k mem common)
 

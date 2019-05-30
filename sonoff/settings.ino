@@ -729,6 +729,7 @@ void SettingsDefaultSet2(void)
   Settings.webserver = WEB_SERVER;
   Settings.weblog_level = WEB_LOG_LEVEL;
   strlcpy(Settings.web_password, WEB_PASSWORD, sizeof(Settings.web_password));
+  strlcpy(Settings.user_password, USER_PASSWORD, sizeof(Settings.user_password));
   Settings.flag3.mdns_enabled = MDNS_ENABLED;
 
   // Button
@@ -1169,6 +1170,7 @@ void SettingsDelta(void)
       Settings.ledmask = APP_LEDMASK;
     }
     if (Settings.version < 0x0605000A) {
+      strlcpy(Settings.user_password, USER_PASSWORD, sizeof(Settings.user_password));
       Settings.my_adc0 = ADC0_NONE;
     }
     if (Settings.version < 0x0605000D) {
