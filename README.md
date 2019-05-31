@@ -1,6 +1,6 @@
 ###### Changes
 > add sonoff-DE-2MB & sonoff-DE-4MB<br />
-> Disabled: All sensors, SerialLog, MQTT, Domoticz, Home Assistant, KNX, mDNS, Display, IR, LLI devices<br />
+> Disabled: All sensors, SerialLog, MQTT, Domoticz, Home Assistant, KNX, mDNS, Display, IR, LLI devices, emulation<br />
 > Defaults: Sleep 150, WiFi Manager, TelePeriod 600, German NTP, Timezone 99, LedState 0, PowerOnState 0, use_script<br />
 > translated on/off status (thx [reloxx13](https://github.com/reloxx13/Sonoff-Tasmota-Modified))<br />
 > add icon for ios home screen (thx [reloxx13](https://github.com/reloxx13/Sonoff-Tasmota-Modified))<br />
