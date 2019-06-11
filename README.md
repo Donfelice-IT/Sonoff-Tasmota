@@ -7,6 +7,8 @@
 > add  style='line-height:5.0rem;' to button (thx [reloxx13](https://github.com/reloxx13/Sonoff-Tasmota-Modified))<br />
 > WebColor night mode (thx [NoitaercX](https://forum.creationx.de/forum/index.php?thread/1692-tasmota-v6-5-0-release/&postID=22675#post22675))<br />
 > Allow non-admin user handling on web interface [PR#5747](https://github.com/arendst/Sonoff-Tasmota/pull/5747) (thx [hb020](https://github.com/hb020))
+>
+> You MUST disable "use_script" to compile sonoff-minimal!
 
 
 # Sonoff-Tasmota
