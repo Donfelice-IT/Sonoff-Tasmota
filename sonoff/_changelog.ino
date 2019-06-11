@@ -1,4 +1,7 @@
-/*
+/* 6.5.0.16 20190611
+ * Refactored TLS based on BearSSL, warning breaking change for fingerprints validation (see doc)
+ * Add checkbox to GUI password field enabling visibility during password entry only (#5934)
+ *
  * 6.5.0.15 20190606
  * Change pubsubclient MQTT_KEEPALIVE from 10 to 30 seconds in preparation of AWS IoT support
  * Add support for AWS IoT with TLS 1.2 on core 2.5.2. Full doc here: https://github.com/arendst/Sonoff-Tasmota/wiki/AWS-IoT
