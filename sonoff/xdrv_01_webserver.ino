@@ -62,6 +62,8 @@ const char HTTP_HEAD[] PROGMEM =
   "eb=s=>document.getElementById(s);"     // Alias to save code space
   "qs=s=>document.querySelector(s);"      // Alias to save code space
   "sp=i=>eb(i).type=(eb(i).type==='text'?'password':'text');"  // Toggle password visibility
+  "wl=f=>window.addEventListener('load',f);" // Execute multiple window.onload
+  ;
 #else
   "function eb(s){"
     "return document.getElementById(s);"  // Alias to save code space
@@ -72,22 +74,10 @@ const char HTTP_HEAD[] PROGMEM =
   "function sp(i){"                       // Toggle password visibility
     "eb(i).type=(eb(i).type==='text'?'password':'text');"
   "}"
-#endif
-
-  // https://www.htmlgoodies.com/beyond/javascript/article.php/3724571/Using-Multiple-JavaScript-Onload-Functions.htm
   "function wl(f){"                       // Execute multiple window.onload
-    "var o=window.onload;"
-    "if(typeof window.onload!='function'){"
-      "window.onload=f;"
-    "}else{"
-      "window.onload=function(){"
-        "if(o){"
-          "o();"
-        "}"
-        "f();"
-      "}"
-    "}"
+    "window.addEventListener('load',f);"
   "}";
+#endif
 
 const char HTTP_SCRIPT_COUNTER[] PROGMEM =
   "var cn=180;"                           // seconds
@@ -120,12 +110,19 @@ const char HTTP_SCRIPT_ROOT[] PROGMEM =
     "x.send();"
     "lt=setTimeout(la,%d);"               // Settings.web_refresh
   "}"
+
+#ifdef USE_JAVASCRIPT_ES6
+  "lb=p=>la('&d='+p);"                    // Dark - Bright &d related to lb(value) and WebGetArg("d", tmp, sizeof(tmp));
+  "lc=p=>la('&t='+p);"                    // Cold - Warm &t related to lc(value) and WebGetArg("t", tmp, sizeof(tmp));
+#else
   "function lb(p){"
     "la('&d='+p);"                        // &d related to WebGetArg("d", tmp, sizeof(tmp));
   "}"
   "function lc(p){"
     "la('&t='+p);"                        // &t related to WebGetArg("t", tmp, sizeof(tmp));
   "}"
+#endif
+
   "wl(la);";
 
 const char HTTP_SCRIPT_WIFI[] PROGMEM =
@@ -142,12 +139,10 @@ const char HTTP_SCRIPT_RELOAD_OTA[] PROGMEM =
   "setTimeout(function(){location.href='.';}," STR(HTTP_OTA_RESTART_RECONNECT_TIME) ");";
 
 const char HTTP_SCRIPT_CONSOL[] PROGMEM =
-  "var sn=0;"                             // Scroll position
-  "var id=0;"                             // Get most of weblog initially
+  "var sn=0,id=0;"                        // Scroll position, Get most of weblog initially
   "function l(p){"                        // Console log and command service
-    "var c,o,t;"
+    "var c,o='',t;"
     "clearTimeout(lt);"
-    "o='';"
     "t=eb('t1');"
     "if(p==1){"
       "c=eb('c1');"
@@ -242,9 +237,15 @@ const char HTTP_SCRIPT_TEMPLATE[] PROGMEM =
     "sk(17,99);"                          // 17 = WEMOS
     "st(" STR(USER_MODULE) ");"
   "}"
+
+#ifdef USE_JAVASCRIPT_ES6
+  "sl=()=>ld('tp?m=1',x2);"               // ?m related to WebServer->hasArg("m")
+#else
   "function sl(){"
     "ld('tp?m=1',x2);"                    // ?m related to WebServer->hasArg("m")
   "}"
+#endif
+
   "wl(sl);";
 
 const char HTTP_SCRIPT_MODULE1[] PROGMEM =
@@ -280,7 +281,7 @@ const char HTTP_SCRIPT_INFO_END[] PROGMEM =
   "wl(i);";
 
 const char HTTP_HEAD_LAST_SCRIPT[] PROGMEM =
-  "function id(){"                        // Add label name='' based on provided id=''
+  "function jd(){"                        // Add label name='' based on provided id=''
     "var t=0,i=document.querySelectorAll('input,button,textarea,select');"
     "while(i.length>=t){"
       "if(i[t]){"
@@ -289,7 +290,7 @@ const char HTTP_HEAD_LAST_SCRIPT[] PROGMEM =
       "t++;"
     "}"
   "}"
-  "wl(id);"                               // Add name='' to any id='' in input,button,textarea,select
+  "wl(jd);"                               // Add name='' to any id='' in input,button,textarea,select
   "</script>";
 
 const char HTTP_HEAD_STYLE1[] PROGMEM =
