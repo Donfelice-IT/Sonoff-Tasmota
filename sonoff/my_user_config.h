@@ -403,11 +403,12 @@
 //#define USE_SDM630                               // Add support for Eastron SDM630-Modbus energy meter (+2k code)
  #define SDM630_SPEED         9600                // SDM630-Modbus RS485 serial speed (default: 9600 baud)
 //#define USE_MP3_PLAYER                           // Use of the DFPlayer Mini MP3 Player RB-DFR-562 commands: play, volume and stop
-  #define MP3_VOLUME           10                  // Set the startup volume on init, the range can be 0..30(max)
+  #define MP3_VOLUME           10                // Set the startup volume on init, the range can be 0..30(max)
 //#define USE_TUYA_DIMMER                          // Add support for Tuya Serial Dimmer
-  #define TUYA_DIMMER_ID       0                   // Default dimmer Id
+  #define TUYA_DIMMER_ID       0                 // Default dimmer Id
 //#define USE_ARMTRONIX_DIMMERS                    // Add support for Armtronix Dimmers (+1k4 code)
-//#define USE_PS_16_DZ                             // Add support for PS-16-DZ Dimmer
+//#define USE_PS_16_DZ                             // Add support for PS-16-DZ Dimmer and Sonoff L1 (+2k code)
+
 //#define ROTARY_V1                                // Add support for MI Desk Lamp
 //#define USE_AZ7798                               // Add support for AZ-Instrument 7798 CO2 datalogger (+1k6 code)
 //#define USE_PN532_HSU                            // Add support for PN532 using HSU (Serial) interface (+1k8 code, 140 bytes mem)

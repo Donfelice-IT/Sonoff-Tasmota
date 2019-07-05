@@ -1939,8 +1939,8 @@ void MqttShowState(void)
   ResponseAppend_P(PSTR(",\"" D_JSON_VCC "\":%s"), stemp1);
 #endif
 
-  ResponseAppend_P(PSTR(",\"SleepMode\":\"%s\",\"Sleep\":%u,\"LoadAvg\":%u"),
-    GetTextIndexed(stemp1, sizeof(stemp1), Settings.flag3.sleep_normal, kSleepMode), sleep, loop_load_avg);
+  ResponseAppend_P(PSTR(",\"" D_JSON_HEAPSIZE "\":%d,\"SleepMode\":\"%s\",\"Sleep\":%u,\"LoadAvg\":%u"),
+    ESP.getFreeHeap()/1024, GetTextIndexed(stemp1, sizeof(stemp1), Settings.flag3.sleep_normal, kSleepMode), sleep, loop_load_avg);
 
   for (uint32_t i = 0; i < devices_present; i++) {
 #ifdef USE_LIGHT
@@ -2013,7 +2013,8 @@ void PerformEverySecond(void)
 
   if (ntp_synced_message) {
     // Moved here to fix syslog UDP exception 9 during RtcSecond
-    AddLog_P2(LOG_LEVEL_DEBUG, PSTR(D_LOG_APPLICATION "(" D_UTC_TIME ") %s, (" D_DST_TIME ") %s, (" D_STD_TIME ") %s"), GetTime(0).c_str(), GetTime(2).c_str(), GetTime(3).c_str());
+    AddLog_P2(LOG_LEVEL_DEBUG, PSTR("NTP: Drift %d, (" D_UTC_TIME ") %s, (" D_DST_TIME ") %s, (" D_STD_TIME ") %s"),
+      DriftTime(), GetTime(0).c_str(), GetTime(2).c_str(), GetTime(3).c_str());
     ntp_synced_message = false;
   }
 
@@ -2074,13 +2075,14 @@ void PerformEverySecond(void)
 
   XdrvCall(FUNC_EVERY_SECOND);
   XsnsCall(FUNC_EVERY_SECOND);
-
+/*
   if ((2 == RtcTime.minute) && latest_uptime_flag) {
     latest_uptime_flag = false;
     Response_P(PSTR("{\"" D_JSON_TIME "\":\"%s\",\"" D_JSON_UPTIME "\":\"%s\"}"), GetDateAndTime(DT_LOCAL).c_str(), GetUptime().c_str());
     MqttPublishPrefixTopic_P(TELE, PSTR(D_RSLT_UPTIME));
   }
   if ((3 == RtcTime.minute) && !latest_uptime_flag) latest_uptime_flag = true;
+*/
 }
 
 /*********************************************************************************************\
