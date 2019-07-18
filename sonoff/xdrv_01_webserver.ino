@@ -971,18 +971,22 @@ void HandleRoot(void)
 #endif
     WSContentSend_P(HTTP_TABLE100);
     WSContentSend_P(PSTR("<tr>"));
-    if (SONOFF_IFAN02 == my_module_type) {
+#ifdef USE_SONOFF_IFAN
+    if (IsModuleIfan()) {
       WSContentSend_P(HTTP_DEVICE_CONTROL, 36, 1, D_BUTTON_TOGGLE, "");
-      for (uint32_t i = 0; i < MAX_FAN_SPEED; i++) {
+      for (uint32_t i = 0; i < MaxFanspeed(); i++) {
         snprintf_P(stemp, sizeof(stemp), PSTR("%d"), i);
         WSContentSend_P(HTTP_DEVICE_CONTROL, 16, i +2, stemp, "");
       }
     } else {
+#endif  // USE_SONOFF_IFAN
       for (uint32_t idx = 1; idx <= devices_present; idx++) {
         snprintf_P(stemp, sizeof(stemp), PSTR(" %d"), idx);
         WSContentSend_P(HTTP_DEVICE_CONTROL, 100 / devices_present, idx, (devices_present < 5) ? D_BUTTON_TOGGLE : "", (devices_present > 1) ? stemp : "");
       }
+#ifdef USE_SONOFF_IFAN
     }
+#endif  // USE_SONOFF_IFAN
     WSContentSend_P(PSTR("</tr></table>"));
   }
   if (SONOFF_BRIDGE == my_module_type) {
@@ -1035,7 +1039,8 @@ void HandleRootStatusRefresh(void)
   if (strlen(tmp)) {
     ShowWebSource(SRC_WEBGUI);
     uint8_t device = atoi(tmp);
-    if (SONOFF_IFAN02 == my_module_type) {
+#ifdef USE_SONOFF_IFAN
+    if (IsModuleIfan()) {
       if (device < 2) {
         ExecuteCommandPower(1, POWER_TOGGLE, SRC_IGNORE);
       } else {
@@ -1043,8 +1048,11 @@ void HandleRootStatusRefresh(void)
         ExecuteCommand(svalue, SRC_WEBGUI);
       }
     } else {
+#endif  // USE_SONOFF_IFAN
       ExecuteCommandPower(device, POWER_TOGGLE, SRC_IGNORE);
+#ifdef USE_SONOFF_IFAN
     }
+#endif  // USE_SONOFF_IFAN
   }
   WebGetArg("d", tmp, sizeof(tmp));  // 0 - 100 Dimmer value
   if (strlen(tmp)) {
@@ -1070,17 +1078,21 @@ void HandleRootStatusRefresh(void)
   if (devices_present) {
     WSContentSend_P(PSTR("{t}<tr>"));
     uint8_t fsize = (devices_present < 5) ? 70 - (devices_present * 8) : 32;
-    if (SONOFF_IFAN02 == my_module_type) {
+#ifdef USE_SONOFF_IFAN
+    if (IsModuleIfan()) {
       WSContentSend_P(HTTP_DEVICE_STATE, 36, (bitRead(power, 0)) ? "bold" : "normal", 54, GetStateText(bitRead(power, 0)));
       uint8_t fanspeed = GetFanspeed();
       snprintf_P(svalue, sizeof(svalue), PSTR("%d"), fanspeed);
       WSContentSend_P(HTTP_DEVICE_STATE, 64, (fanspeed) ? "bold" : "normal", 54, (fanspeed) ? svalue : GetStateText(0));
     } else {
+#endif  // USE_SONOFF_IFAN
       for (uint32_t idx = 1; idx <= devices_present; idx++) {
         snprintf_P(svalue, sizeof(svalue), PSTR("%d"), bitRead(power, idx -1));
         WSContentSend_P(HTTP_DEVICE_STATE, 100 / devices_present, (bitRead(power, idx -1)) ? "bold" : "normal", fsize, (devices_present < 5) ? GetStateText(bitRead(power, idx -1)) : svalue);
       }
+#ifdef USE_SONOFF_IFAN
     }
+#endif  // USE_SONOFF_IFAN
     WSContentSend_P(PSTR("</tr></table>"));
   }
   WSContentEnd();
@@ -1599,7 +1611,9 @@ void HandleOtherConfiguration(void)
   WSContentSend_P(HTTP_FORM_OTHER, stemp, (USER_MODULE == Settings.module) ? " checked disabled" : "", (Settings.flag.mqtt_enabled) ? " checked" : "");
 
   uint8_t maxfn = (devices_present > MAX_FRIENDLYNAMES) ? MAX_FRIENDLYNAMES : (!devices_present) ? 1 : devices_present;
-  if (SONOFF_IFAN02 == my_module_type) { maxfn = 1; }
+#ifdef USE_SONOFF_IFAN
+  if (IsModuleIfan()) { maxfn = 1; }
+#endif  // USE_SONOFF_IFAN
   for (uint32_t i = 0; i < maxfn; i++) {
     snprintf_P(stemp, sizeof(stemp), PSTR("%d"), i +1);
     WSContentSend_P(PSTR("<b>" D_FRIENDLY_NAME " %d</b> (" FRIENDLY_NAME "%s)<br><input id='a%d' placeholder='" FRIENDLY_NAME "%s' value='%s'><p></p>"),
@@ -1780,7 +1794,9 @@ void HandleInformation(void)
   WSContentSend_P(PSTR("}1" D_BOOT_COUNT "}2%d"), Settings.bootcount);
   WSContentSend_P(PSTR("}1" D_RESTART_REASON "}2%s"), GetResetReason().c_str());
   uint8_t maxfn = (devices_present > MAX_FRIENDLYNAMES) ? MAX_FRIENDLYNAMES : devices_present;
-  if (SONOFF_IFAN02 == my_module_type) { maxfn = 1; }
+#ifdef USE_SONOFF_IFAN
+  if (IsModuleIfan()) { maxfn = 1; }
+#endif  // USE_SONOFF_IFAN
   for (uint32_t i = 0; i < maxfn; i++) {
     WSContentSend_P(PSTR("}1" D_FRIENDLY_NAME " %d}2%s"), i +1, Settings.friendlyname[i]);
   }
@@ -2343,7 +2359,7 @@ String UrlEncode(const String& text)
 			encoded += hex[decodedChar & 0xF];
     }
 */
-    if (' ' == decodedChar) {
+    if ((' ' == decodedChar) || ('+' == decodedChar)) {
       encoded += '%';
 			encoded += hex[decodedChar >> 4];
 			encoded += hex[decodedChar & 0xF];
