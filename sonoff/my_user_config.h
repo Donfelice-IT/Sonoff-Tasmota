@@ -307,11 +307,11 @@
 //  #define SUPPORT_MQTT_EVENT                     // Support trigger event with MQTT subscriptions (+3k5 code)
 
 // -- Optional modules ----------------------------
-#define USE_SONOFF_IFAN                          // Add support for Sonoff iFan02 and iFan03 (+2k code)
-#define USE_TUYA_DIMMER                          // Add support for Tuya Serial Dimmer
+//#define USE_SONOFF_IFAN                          // Add support for Sonoff iFan02 and iFan03 (+2k code)
+//#define USE_TUYA_DIMMER                          // Add support for Tuya Serial Dimmer
   #define TUYA_DIMMER_ID       0                 // Default dimmer Id
-#define USE_ARMTRONIX_DIMMERS                    // Add support for Armtronix Dimmers (+1k4 code)
-#define USE_PS_16_DZ                             // Add support for PS-16-DZ Dimmer and Sonoff L1 (+2k code)
+//#define USE_ARMTRONIX_DIMMERS                    // Add support for Armtronix Dimmers (+1k4 code)
+//#define USE_PS_16_DZ                             // Add support for PS-16-DZ Dimmer and Sonoff L1 (+2k code)
 //#define ROTARY_V1                                // Add support for MI Desk Lamp
 
 // -- Counter input -------------------------------
@@ -366,7 +366,7 @@
 //  #define USE_MGC3130                            // Enable MGC3130 Electric Field Effect Sensor (I2C address 0x42) (+2k7 code, 0k3 mem)
 //  #define USE_MAX44009                           // Enable MAX44009 Ambient Light sensor (I2C addresses 0x4A and 0x4B) (+0k8 code)
 //  #define USE_SCD30                              // Enable Sensiron SCd30 CO2 sensor (I2C address 0x61) (+3k3 code)
-//  #define USE_SPS30                               // Enable Sensiron SPS30 particle sensor (I2C address 0x69) (+1.7 code)
+//  #define USE_SPS30                              // Enable Sensiron SPS30 particle sensor (I2C address 0x69) (+1.7 code)
 //  #define USE_ADE7953                            // Enable ADE7953 Energy monitor as used on Shelly 2.5 (I2C address 0x38) (+1k5)
 //  #define USE_VL53L0X                            // Enable VL53L0x time of flight sensor (I2C address 0x29) (+4k code)
 //  #define USE_MLX90614                           // Enable MLX90614 ir temp sensor (I2C address 0x5a) (+0.6k code)
@@ -375,9 +375,9 @@
 //    #define USE_DISPLAY_MODES1TO5                // Enable display mode 1 to 5 in addition to mode 0
 //    #define USE_DISPLAY_LCD                      // [DisplayModel 1] Enable Lcd display (I2C addresses 0x27 and 0x3F) (+6k code)
 //    #define USE_DISPLAY_SSD1306                  // [DisplayModel 2] Enable SSD1306 Oled 128x64 display (I2C addresses 0x3C and 0x3D) (+16k code)
-//   #define USE_DISPLAY_MATRIX                    // [DisplayModel 3] Enable 8x8 Matrix display (I2C adresseses see below) (+11k code)
+//    #define USE_DISPLAY_MATRIX                   // [DisplayModel 3] Enable 8x8 Matrix display (I2C adresseses see below) (+11k code)
 //      #define MTX_ADDRESS1     0x71              // [DisplayAddress1] I2C address of first 8x8 matrix module
-//     #define MTX_ADDRESS2     0x74               // [DisplayAddress2] I2C address of second 8x8 matrix module
+//      #define MTX_ADDRESS2     0x74              // [DisplayAddress2] I2C address of second 8x8 matrix module
 //      #define MTX_ADDRESS3     0x75              // [DisplayAddress3] I2C address of third 8x8 matrix module
 //      #define MTX_ADDRESS4     0x72              // [DisplayAddress4] I2C address of fourth 8x8 matrix module
 //      #define MTX_ADDRESS5     0x73              // [DisplayAddress5] I2C address of fifth 8x8 matrix module
@@ -413,12 +413,6 @@
  #define SDM630_SPEED         9600                // SDM630-Modbus RS485 serial speed (default: 9600 baud)
 //#define USE_MP3_PLAYER                           // Use of the DFPlayer Mini MP3 Player RB-DFR-562 commands: play, volume and stop
   #define MP3_VOLUME           10                // Set the startup volume on init, the range can be 0..30(max)
-//#define USE_TUYA_DIMMER                          // Add support for Tuya Serial Dimmer
-  #define TUYA_DIMMER_ID       0                 // Default dimmer Id
-//#define USE_ARMTRONIX_DIMMERS                    // Add support for Armtronix Dimmers (+1k4 code)
-//#define USE_PS_16_DZ                             // Add support for PS-16-DZ Dimmer and Sonoff L1 (+2k code)
-
-//#define ROTARY_V1                                // Add support for MI Desk Lamp
 //#define USE_AZ7798                               // Add support for AZ-Instrument 7798 CO2 datalogger (+1k6 code)
 //#define USE_PN532_HSU                            // Add support for PN532 using HSU (Serial) interface (+1k8 code, 140 bytes mem)
 //  #define USE_PN532_CAUSE_EVENTS                 // Cause event execution for PN532_UID= and PN532_DATA=[if defined] (+ 30 bytes code)
@@ -436,12 +430,36 @@
 
 //#define USE_MAX31855                             // Add support for MAX31855 K-Type thermocouple sensor using softSPI
 
-//#define USE_IR_REMOTE                            // Send IR remote commands using library IRremoteESP8266 and ArduinoJson (+4k3 code, 0k3 mem, 48 iram)
-//  #define USE_IR_HVAC                            // Support for HVAC (Toshiba, Mitsubishi and LG) system using IR (+3k5 code)
+// -- IR Remote features --------------------------
+#define USE_IR_REMOTE                            // Send IR remote commands using library IRremoteESP8266 and ArduinoJson (+4k3 code, 0k3 mem, 48 iram)
+//  #define USE_IR_SEND_AIWA                       // Support IRsend Aiwa protocol
+  #define USE_IR_SEND_DISH                       // Support IRsend Dish protocol
+  #define USE_IR_SEND_JVC                        // Support IRsend JVC protocol
+//  #define USE_IR_SEND_LG                         // Support IRsend LG protocol
+//  #define USE_IR_SEND_MITSUBISHI                 // Support IRsend Mitsubishi protocol
+  #define USE_IR_SEND_NEC                        // Support IRsend NEC protocol
+  #define USE_IR_SEND_PANASONIC                  // Support IRsend Panasonic protocol
+  #define USE_IR_SEND_PIONEER                    // Support IRsend Pioneer protocol
+  #define USE_IR_SEND_RC5                        // Support IRsend Philips RC5 protocol
+  #define USE_IR_SEND_RC6                        // Support IRsend Philips RC6 protocol
+  #define USE_IR_SEND_SAMSUNG                    // Support IRsend Samsung protocol
+//  #define USE_IR_SEND_SANYO                      // Support IRsend Sanyo protocol
+//  #define USE_IR_SEND_SHARP                      // Support IRsend Sharp protocol
+  #define USE_IR_SEND_SONY                       // Support IRsend Sony protocol
+//  #define USE_IR_SEND_WHYNTER                    // Support IRsend Whynter protocol
+
+//  #define USE_IR_HVAC                            // Support for HVAC systems using IR (+3k5 code)
+    #define USE_IR_HVAC_TOSHIBA                  // Support IRhvac Toshiba protocol
+    #define USE_IR_HVAC_MITSUBISHI               // Support IRhvac Mitsubischi protocol
+    #define USE_IR_HVAC_LG                       // Support IRhvac LG protocol
+    #define USE_IR_HVAC_FUJITSU                  // Support IRhvac Fujitsu protocol
+//    #define USE_IR_HVAC_MIDEA                    // Support IRhvac Midea/Komeco protocol
+
 //  #define USE_IR_RECEIVE                         // Support for IR receiver (+7k2 code, 264 iram)
     #define IR_RCV_BUFFER_SIZE      100          // Max number of packets allowed in capture buffer (default 100 (*2 bytes ram))
     #define IR_RCV_TIMEOUT          15           // Number of milli-Seconds of no-more-data before we consider a message ended (default 15)
     #define IR_RCV_MIN_UNKNOWN_SIZE 6            // Set the smallest sized "UNKNOWN" message packets we actually care about (default 6, max 255)
+// ------------------------------------------------
 
 //#define USE_WS2812                               // WS2812 Led string using library NeoPixelBus (+5k code, +1k mem, 232 iram) - Disable by //
 //  #define USE_WS2812_CTYPE     NEO_GRB           // WS2812 Color type (NEO_RGB, NEO_GRB, NEO_BRG, NEO_RBG, NEO_RGBW, NEO_GRBW)
