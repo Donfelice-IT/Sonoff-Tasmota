@@ -169,6 +169,41 @@ bool MqttPublishLib(const char* topic, bool retained)
   return result;
 }
 
+void MqttDataHandler(char* topic, uint8_t* data, unsigned int data_len)
+{
+#ifdef USE_DEBUG_DRIVER
+  ShowFreeMem(PSTR("MqttDataHandler"));
+#endif
+
+  // Do not allow more data than would be feasable within stack space
+  if (data_len >= MQTT_MAX_PACKET_SIZE) { return; }
+
+  // Do not execute multiple times if Prefix1 equals Prefix2
+  if (!strcmp(Settings.mqtt_prefix[0], Settings.mqtt_prefix[1])) {
+    char *str = strstr(topic, Settings.mqtt_prefix[0]);
+    if ((str == topic) && mqtt_cmnd_publish) {
+      if (mqtt_cmnd_publish > 3) {
+        mqtt_cmnd_publish -= 3;
+      } else {
+        mqtt_cmnd_publish = 0;
+      }
+      return;
+    }
+  }
+
+  data[data_len] = 0;
+
+  AddLog_P2(LOG_LEVEL_DEBUG_MORE, PSTR(D_LOG_MQTT D_RECEIVED_TOPIC " %s, " D_DATA_SIZE " %d, " D_DATA " %s"), topic, data_len, data);
+//  if (LOG_LEVEL_DEBUG_MORE <= seriallog_level) { Serial.println(dataBuf); }
+
+  // MQTT pre-processing
+  if (XdrvMqttData(topic, strlen(topic), (char*)data, data_len)) { return; }
+
+  ShowSource(SRC_MQTT);
+
+  CommandHandler(topic, data, data_len);
+}
+
 /*********************************************************************************************/
 
 #ifdef USE_DISCOVERY
