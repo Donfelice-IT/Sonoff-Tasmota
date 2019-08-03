@@ -108,6 +108,7 @@ int blinks = 201;                           // Number of LED blinks
 uint32_t uptime = 0;                        // Counting every second until 4294967295 = 130 year
 uint32_t loop_load_avg = 0;                 // Indicative loop load average
 uint32_t global_update = 0;                 // Timestamp of last global temperature and humidity update
+uint32_t web_log_index = 1;                  // Index in Web log buffer (should never be 0)
 float global_temperature = 9999;               // Provide a global temperature to be used by some sensors
 float global_humidity = 0;                  // Provide a global humidity to be used by some sensors
 float global_pressure = 0;                  // Provide a global pressure to be used by some sensors
@@ -137,7 +138,6 @@ uint8_t energy_flg = 0;                     // Energy monitor configured
 uint8_t light_type = 0;                     // Light types
 uint8_t serial_in_byte;                     // Received byte
 uint8_t ota_retry_counter = OTA_ATTEMPTS;   // OTA retry counter
-uint8_t web_log_index = 1;                  // Index in Web log buffer (should never be 0)
 uint8_t devices_present = 0;                // Max number of devices supported
 uint8_t seriallog_level;                    // Current copy of Settings.seriallog_level
 uint8_t syslog_level;                       // Current copy of Settings.syslog_level
@@ -629,8 +629,8 @@ void MqttShowState(void)
   ResponseAppend_P(PSTR(",\"" D_JSON_VCC "\":%s"), stemp1);
 #endif
 
-  ResponseAppend_P(PSTR(",\"" D_JSON_HEAPSIZE "\":%d,\"SleepMode\":\"%s\",\"Sleep\":%u,\"LoadAvg\":%u"),
-    ESP.getFreeHeap()/1024, GetTextIndexed(stemp1, sizeof(stemp1), Settings.flag3.sleep_normal, kSleepMode), sleep, loop_load_avg);
+  ResponseAppend_P(PSTR(",\"" D_JSON_HEAPSIZE "\":%d,\"SleepMode\":\"%s\",\"Sleep\":%u,\"LoadAvg\":%u,\"MqttCount\":%u"),
+    ESP.getFreeHeap()/1024, GetTextIndexed(stemp1, sizeof(stemp1), Settings.flag3.sleep_normal, kSleepMode), sleep, loop_load_avg, MqttConnectCount());
 
   for (uint32_t i = 0; i < devices_present; i++) {
 #ifdef USE_LIGHT
