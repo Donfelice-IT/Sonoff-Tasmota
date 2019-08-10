@@ -1,4 +1,4 @@
-###### Changes
+###### Difference to the original repository
 > add sonoff-DE-2MB & sonoff-DE-4MB<br />
 > Disabled: All sensors, SerialLog, MQTT, Domoticz, Home Assistant, KNX, mDNS, Display, IR, LLI devices, emulation<br />
 > Defaults: Sleep 150, WiFi Manager, TelePeriod 600, German NTP, Timezone 99, LedState 0, PowerOnState 0, use_script<br />
