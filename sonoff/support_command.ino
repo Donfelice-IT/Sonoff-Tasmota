@@ -654,6 +654,10 @@ void CmndSetoption(void)
 #endif
 #ifdef USE_TUYA_DIMMER
             case P_TUYA_RELAYS:
+            case P_TUYA_POWER_ID:
+            case P_TUYA_CURRENT_ID:
+            case P_TUYA_VOLTAGE_ID:
+            case P_TUYA_DIMMER_MAX:
               restart_flag = 2;  // Need a restart to update GUI
               break;
 #endif
@@ -959,7 +963,7 @@ void CmndBaudrate(void)
 {
   if (XdrvMailbox.payload > 1200) {
     XdrvMailbox.payload /= 1200;  // Make it a valid baudrate
-    baudrate = XdrvMailbox.payload * 1200;
+    baudrate = (XdrvMailbox.payload & 0xFF) * 1200;
     SetSerialBaudrate(baudrate);
   }
   ResponseCmndNumber(Settings.baudrate * 1200);
