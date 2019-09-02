@@ -113,6 +113,7 @@ const uint16_t SERIALLOG_TIMER = 600;       // Seconds to disable SerialLog
 const uint8_t OTA_ATTEMPTS = 5;             // Number of times to try fetching the new firmware
 
 const uint16_t INPUT_BUFFER_SIZE = 520;     // Max number of characters in (serial and http) command buffer
+const uint16_t FLOATSZ = 33;                // Max number of characters in float result from dtostrfd
 const uint16_t CMDSZ = 24;                  // Max number of characters in command
 const uint16_t TOPSZ = 100;                 // Max number of characters in topic string
 const uint16_t LOGSZ = 520;                 // Max number of characters in log
@@ -171,6 +172,13 @@ const uint32_t LOOP_SLEEP_DELAY = 50;       // Lowest number of milliseconds to 
 #define RGB_REMAP_GBRW         30
 #define RGB_REMAP_BRGW         48
 #define RGB_REMAP_BGRW         54
+
+#define NEO_HW_WS2812          0            // NeoPixelBus hardware WS2812
+#define NEO_HW_WS2812X         1            // NeoPixelBus hardware WS2812x like WS2812b
+#define NEO_HW_WS2813          1            // NeoPixelBus hardware WS2813
+#define NEO_HW_SK6812          2            // NeoPixelBus hardware SK6812
+#define NEO_HW_LC8812          2            // NeoPixelBus hardware LC8812
+#define NEO_HW_APA106          3            // NeoPixelBus hardware APA106
 
 #define MQTT_PUBSUBCLIENT      1            // Mqtt PubSubClient library
 #define MQTT_TASMOTAMQTT       2            // Mqtt TasmotaMqtt library based on esp-mqtt-arduino - soon obsolete
@@ -254,7 +262,7 @@ enum XsnsFunctions {FUNC_SETTINGS_OVERRIDE, FUNC_PIN_STATE, FUNC_MODULE_INIT, FU
                     FUNC_PREP_BEFORE_TELEPERIOD, FUNC_JSON_APPEND, FUNC_WEB_SENSOR, FUNC_COMMAND, FUNC_COMMAND_SENSOR, FUNC_COMMAND_DRIVER,
                     FUNC_MQTT_SUBSCRIBE, FUNC_MQTT_INIT, FUNC_MQTT_DATA,
                     FUNC_SET_POWER, FUNC_SET_DEVICE_POWER, FUNC_SHOW_SENSOR,
-                    FUNC_ENERGY_EVERY_SECOND,
+                    FUNC_ENERGY_EVERY_SECOND, FUNC_ENERGY_RESET,
                     FUNC_RULES_PROCESS, FUNC_SERIAL, FUNC_FREE_MEM, FUNC_BUTTON_PRESSED,
                     FUNC_WEB_ADD_BUTTON, FUNC_WEB_ADD_MAIN_BUTTON, FUNC_WEB_ADD_HANDLER, FUNC_SET_CHANNELS};
 
