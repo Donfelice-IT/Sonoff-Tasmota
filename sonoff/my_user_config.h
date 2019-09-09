@@ -310,7 +310,7 @@
 // -- Optional modules ----------------------------
 //#define USE_BUZZER                               // Add support for a buzzer (+0k6 code)
 //#define USE_SONOFF_IFAN                          // Add support for Sonoff iFan02 and iFan03 (+2k code)
-//#define USE_TUYA_DIMMER                          // Add support for Tuya Serial Dimmer
+//#define USE_TUYA_MCU                             // Add support for Tuya Serial MCU
   #define TUYA_DIMMER_ID       0                 // Default dimmer Id
 //#define USE_ARMTRONIX_DIMMERS                    // Add support for Armtronix Dimmers (+1k4 code)
 //#define USE_PS_16_DZ                             // Add support for PS-16-DZ Dimmer and Sonoff L1 (+2k code)
@@ -344,6 +344,7 @@
 //  #define USE_ADS1115                            // Enable ADS1115 16 bit A/D converter (I2C address 0x48, 0x49, 0x4A or 0x4B) based on Adafruit ADS1x15 library (no library needed) (+0k7 code)
 //  #define USE_ADS1115_I2CDEV                     // Enable ADS1115 16 bit A/D converter (I2C address 0x48, 0x49, 0x4A or 0x4B) using library i2cdevlib-Core and i2cdevlib-ADS1115 (+2k code)
 //  #define USE_INA219                             // Enable INA219 (I2C address 0x40, 0x41 0x44 or 0x45) Low voltage and current sensor (+1k code)
+//  #define USE_INA226                             // Enable INA226 (I2C address 0x40, 0x41 0x44 or 0x45) Low voltage and current sensor (+2k3 code)
 //  #define USE_SHT3X                              // Enable SHT3x (I2C address 0x44 or 0x45) or SHTC3 (I2C address 0x70) sensor (+0k7 code)
 //  #define USE_TSL2561                            // Enable TSL2561 sensor (I2C address 0x29, 0x39 or 0x49) using library Joba_Tsl2561 (+2k3 code)
 //  #define USE_MGS                                // Enable Xadow and Grove Mutichannel Gas sensor using library Multichannel_Gas_Sensor (+10k code)
@@ -530,6 +531,7 @@
 //#define USE_SM16716                              // Add support for SM16716 RGB LED controller (+0k7 code)
 
 //#define USE_HRE                                  // Add support for Badger HR-E Water Meter (+1k4 code)
+//#define USE_A4988_Stepper                        // Add support for A4988 stepper-motor-driver-circuit (+10k5 code)
 
 /*********************************************************************************************\
  * Debug features
