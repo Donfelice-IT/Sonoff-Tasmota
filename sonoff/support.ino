@@ -124,6 +124,18 @@ size_t strcspn(const char *str1, const char *str2)
   return ret;
 }
 
+// https://clc-wiki.net/wiki/C_standard_library:string.h:strpbrk
+// Locate the ﬁrst occurrence in the string pointed to by s1 of any character from the string pointed to by s2
+char* strpbrk(const char *s1, const char *s2)
+{
+  while(*s1) {
+    if (strchr(s2, *s1++)) {
+      return (char*)--s1;
+    }
+  }
+  return 0;
+}
+
 // https://opensource.apple.com/source/Libc/Libc-583/stdlib/FreeBSD/strtoull.c
 // Convert a string to an unsigned long long integer
 #ifndef __LONG_LONG_MAX__
@@ -749,25 +761,26 @@ bool DecodeCommand(const char* haystack, void (* const MyCommand[])(void))
   return false;
 }
 
+const char kOptions[] PROGMEM = "OFF|" D_OFF "|" D_FALSE "|" D_STOP "|" D_CELSIUS "|"              // 0
+                                "ON|" D_ON "|" D_TRUE "|" D_START "|" D_FAHRENHEIT "|" D_USER "|"  // 1
+                                "TOGGLE|" D_TOGGLE "|" D_ADMIN "|"                                 // 2
+                                "BLINK|" D_BLINK "|"                                               // 3
+                                "BLINKOFF|" D_BLINKOFF "|"                                         // 4
+                                "ALL" ;                                                            // 255
+
+const uint8_t sNumbers[] PROGMEM = { 0,0,0,0,0,
+                                     1,1,1,1,1,1,
+                                     2,2,2,
+                                     3,3,
+                                     4,4,
+                                     255 };
+
 int GetStateNumber(char *state_text)
 {
   char command[CMDSZ];
-  int state_number = -1;
-
-  if (GetCommandCode(command, sizeof(command), state_text, kOptionOff) >= 0) {
-    state_number = 0;
-  }
-  else if (GetCommandCode(command, sizeof(command), state_text, kOptionOn) >= 0) {
-    state_number = 1;
-  }
-  else if (GetCommandCode(command, sizeof(command), state_text, kOptionToggle) >= 0) {
-    state_number = 2;
-  }
-  else if (GetCommandCode(command, sizeof(command), state_text, kOptionBlink) >= 0) {
-    state_number = 3;
-  }
-  else if (GetCommandCode(command, sizeof(command), state_text, kOptionBlinkOff) >= 0) {
-    state_number = 4;
+  int state_number = GetCommandCode(command, sizeof(command), state_text, kOptions);
+  if (state_number >= 0) {
+    state_number = pgm_read_byte(sNumbers + state_number);
   }
   return state_number;
 }
@@ -936,6 +949,11 @@ int ResponseAppendTime(void)
 int ResponseJsonEnd(void)
 {
   return ResponseAppend_P(PSTR("}"));
+}
+
+int ResponseJsonEndEnd(void)
+{
+  return ResponseAppend_P(PSTR("}}"));
 }
 
 /*********************************************************************************************\
